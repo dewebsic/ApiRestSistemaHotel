@@ -95,4 +95,26 @@ public class DocumentTypeController {
     public ResponseEntity<DocumentTypeDto> update(@PathVariable Long id,@RequestBody DocumentTypeDto entity) throws Exception{
         return ResponseEntity.status(HttpStatus.CREATED).body(this.documentTypeService.update(id,entity));
     }
+
+    @Operation(summary = "Desactivar un DocumentType", description = "", tags = { "documentType" })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "successful operation"),
+            @ApiResponse(responseCode = "404", description = "DocumentType not found"),
+            @ApiResponse(responseCode = "405", description = "Validation exception") })
+    @PatchMapping("/deactivate/{id}")
+    public ResponseEntity<String> deactivate(@PathVariable Long id) throws Exception{
+        this.documentTypeService.deactivate(id);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Desactivado Correctamente");
+    }
+
+    @Operation(summary = "Activar un DocumentType", description = "", tags = { "documentType" })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "successful operation"),
+            @ApiResponse(responseCode = "404", description = "DocumentType not found"),
+            @ApiResponse(responseCode = "405", description = "Validation exception") })
+    @PatchMapping("/activate/{id}")
+    public ResponseEntity<String> activate(@PathVariable Long id) throws Exception{
+        this.documentTypeService.activate(id);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Activado Correctamente");
+    }
 }

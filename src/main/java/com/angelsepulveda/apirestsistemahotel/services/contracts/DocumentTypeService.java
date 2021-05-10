@@ -8,4 +8,6 @@ import org.springframework.data.domain.Pageable;
 public interface DocumentTypeService extends BaseService<DocumentType,DocumentTypeDto,Long>{
 
     Page<DocumentType> search(String filter, Pageable pageable) throws Exception;
+    void deactivate(Long id) throws Exception;
+    void activate(Long id) throws Exception;
 }

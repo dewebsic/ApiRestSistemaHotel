@@ -12,8 +12,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 
 @Service
+@Transactional
 public class DocumentTypeServiceImpl extends BaseServiceImpl<DocumentType,DocumentTypeDto,Long> implements DocumentTypeService {
 
     @Autowired
@@ -29,6 +32,24 @@ public class DocumentTypeServiceImpl extends BaseServiceImpl<DocumentType,Docume
     public Page<DocumentType> search(String filter, Pageable pageable) throws Exception {
         try{
             return this.documentTypeRepository.search(filter,pageable);
+        }catch (Exception ex){
+            throw new Exception(ex.getMessage());
+        }
+    }
+
+    @Override
+    public void deactivate(Long id) throws Exception {
+        try{
+            this.documentTypeRepository.changeState(false,id);
+        }catch (Exception ex){
+            throw new Exception(ex.getMessage());
+        }
+    }
+
+    @Override
+    public void activate(Long id) throws Exception {
+        try{
+            this.documentTypeRepository.changeState(true,id);
         }catch (Exception ex){
             throw new Exception(ex.getMessage());
         }
