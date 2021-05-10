@@ -5,12 +5,14 @@ import com.angelsepulveda.apirestsistemahotel.mappers.contracts.BaseMapper;
 import com.angelsepulveda.apirestsistemahotel.repositories.BaseRepository;
 import com.angelsepulveda.apirestsistemahotel.services.contracts.BaseService;
 import com.angelsepulveda.apirestsistemahotel.validators.contracts.BaseValidator;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class BaseServiceImpl<E,D,ID extends Serializable> implements BaseService<D,ID> {
+public abstract class BaseServiceImpl<E,D,ID extends Serializable> implements BaseService<E,D,ID> {
 
     protected BaseRepository<E,ID> repository;
     protected BaseValidator<E> validator;
@@ -30,6 +32,15 @@ public abstract class BaseServiceImpl<E,D,ID extends Serializable> implements Ba
             List<E> entities = this.repository.findAll();
             return this.mapper.fromEntity(entities);
 
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    @Override
+    public Page<E> findAll(Pageable pageable) throws Exception{
+        try{
+            return this.repository.findAll(pageable);
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }

@@ -1,12 +1,15 @@
 package com.angelsepulveda.apirestsistemahotel.controllers;
 
 import com.angelsepulveda.apirestsistemahotel.dtos.DocumentTypeDto;
+import com.angelsepulveda.apirestsistemahotel.models.DocumentType;
 import com.angelsepulveda.apirestsistemahotel.services.contracts.DocumentTypeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +36,30 @@ public class DocumentTypeController {
     @GetMapping
     public ResponseEntity<List<DocumentTypeDto>> findAll() throws Exception {
         return ResponseEntity.status(HttpStatus.OK).body(this.documentTypeService.findAll());
+    }
+
+    @Operation(summary = "Obtener todos los DocumentTypes paginados",description = "", tags = { "documentType" })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se obtuvo todos los registros",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = DocumentType.class))})
+    })
+    @GetMapping("/paged")
+    public ResponseEntity<Page<DocumentType>> findAll(Pageable pageable) throws Exception {
+        return ResponseEntity.status(HttpStatus.OK).body(this.documentTypeService.findAll(pageable));
+    }
+
+    @Operation(summary = "buscar registros en los DocumentTypes con resultados paginados",description = "", tags = { "documentType" })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se obtuvo todos los registros",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = DocumentType.class))})
+    })
+    @GetMapping("/search")
+    public ResponseEntity<Page<DocumentType>> search(@RequestParam String filter,Pageable pageable) throws Exception {
+        return ResponseEntity.status(HttpStatus.OK).body(this.documentTypeService.search(filter,pageable));
     }
 
     @Operation(summary = "Obtener un DocumentType por su id",description = "", tags = { "documentType" })
