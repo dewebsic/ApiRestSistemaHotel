@@ -6,14 +6,18 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "service_rooms")
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ServiceRoom extends BaseModel{
+public class ServiceRoom{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    public Long id;
 
     @ManyToOne
     @JoinColumn(name = "id_category_service", nullable = false, foreignKey = @ForeignKey(name = "FK_service_room_category"))

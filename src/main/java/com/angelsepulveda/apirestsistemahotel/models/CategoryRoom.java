@@ -2,21 +2,23 @@ package com.angelsepulveda.apirestsistemahotel.models;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "categories_rooms")
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CategoryRoom extends BaseModel {
+public class CategoryRoom{
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    public Long id;
+    
     @Size(min = 3, max = 50, message = "El nombre debe tener un minimo de 3 y un maximo de 50 caracteres")
     @Column(name = "name", length = 50, unique = true, nullable = false)
     private String name;

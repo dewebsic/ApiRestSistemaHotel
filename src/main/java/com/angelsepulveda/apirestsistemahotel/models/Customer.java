@@ -7,14 +7,18 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "customers")
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Customer extends BaseModel{
+public class Customer{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    public Long id;
 
     @ManyToOne
     @JoinColumn(name = "id_document_type", nullable = false, foreignKey = @ForeignKey(name = "FK_customer_document_type"))

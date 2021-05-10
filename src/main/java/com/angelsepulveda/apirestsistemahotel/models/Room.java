@@ -7,14 +7,18 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "rooms")
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Room extends BaseModel{
+public class Room{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    public Long id;
 
     @ManyToOne
     @JoinColumn(name = "id_category_room", nullable = false, foreignKey = @ForeignKey(name = "FK_room_category"))

@@ -2,20 +2,22 @@ package com.angelsepulveda.apirestsistemahotel.models;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "voucher_types")
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class VoucherType extends BaseModel{
+public class VoucherType {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    public Long id;
 
     @Size(min = 2, max = 20, message = "El nombre debe tener un minimo de 2 y un maximo de 20 caracteres")
     @Column(name = "name", length = 20, unique = true, nullable = false)

@@ -2,13 +2,10 @@ package com.angelsepulveda.apirestsistemahotel.models;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "method_payments")
 @Builder
@@ -16,7 +13,12 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class MethodPayment extends BaseModel{
+public class MethodPayment{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    public Long id;
 
     @Size(min = 3, max = 20, message = "El nombre debe tener un minimo de 3 y un maximo de 20 caracteres")
     @Column(name = "name", length = 30, unique = true, nullable = false)

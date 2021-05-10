@@ -1,6 +1,6 @@
 package com.angelsepulveda.apirestsistemahotel.controllers;
 
-import com.angelsepulveda.apirestsistemahotel.models.DocumentType;
+import com.angelsepulveda.apirestsistemahotel.dtos.DocumentTypeDto;
 import com.angelsepulveda.apirestsistemahotel.services.contracts.DocumentTypeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -23,26 +23,27 @@ public class DocumentTypeController {
         this.documentTypeService = documentTypeService;
     }
 
-    @Operation(summary = "Obtener todos los DocumentTypes")
+    @Operation(summary = "Obtener todos los DocumentTypes",description = "", tags = { "documentType" })
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Se obtuvo todos los registros",
-                    content = {@Content(mediaType = "application/json")})
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = DocumentTypeDto.class))})
     })
     @GetMapping
-    public ResponseEntity<List<DocumentType>> findAll() throws Exception {
+    public ResponseEntity<List<DocumentTypeDto>> findAll() throws Exception {
         return ResponseEntity.status(HttpStatus.OK).body(this.documentTypeService.findAll());
     }
 
-    @Operation(summary = "Obtener un DocumentType por su id")
+    @Operation(summary = "Obtener un DocumentType por su id",description = "", tags = { "documentType" })
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Se encontro el archivo",
                     content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = DocumentType.class)) }),
+                            schema = @Schema(implementation = DocumentTypeDto.class)) }),
             @ApiResponse(responseCode = "404", description = "DocumentType not found",
                     content = @Content) })
     @GetMapping("/{id}")
-    public ResponseEntity<DocumentType> getOne(@PathVariable Long id) throws Exception{
+    public ResponseEntity<DocumentTypeDto> getOne(@PathVariable Long id) throws Exception{
         return ResponseEntity.status(HttpStatus.OK).body(this.documentTypeService.findById(id));
     }
 
@@ -50,20 +51,21 @@ public class DocumentTypeController {
     @Operation(summary = "Agregar un DocumentType", description = "", tags = { "documentType" })
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "DocumentType created",
-                    content = @Content(schema = @Schema(implementation = DocumentType.class))),
+                    content = @Content(schema = @Schema(implementation = DocumentTypeDto.class))),
             @ApiResponse(responseCode = "405", description = "Invalid input")})
     @PostMapping
-    public ResponseEntity<DocumentType> save(@RequestBody DocumentType entity) throws Exception{
+    public ResponseEntity<DocumentTypeDto> save(@RequestBody DocumentTypeDto entity) throws Exception{
         return ResponseEntity.status(HttpStatus.CREATED).body(this.documentTypeService.save(entity));
     }
 
     @Operation(summary = "Actualizar un DocumentType", description = "", tags = { "documentType" })
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "successful operation"),
+            @ApiResponse(responseCode = "201", description = "successful operation",
+                    content = @Content(schema = @Schema(implementation = DocumentTypeDto.class))),
             @ApiResponse(responseCode = "404", description = "DocumentType not found"),
             @ApiResponse(responseCode = "405", description = "Validation exception") })
     @PutMapping("/{id}")
-    public ResponseEntity<DocumentType> update(@PathVariable Long id,@RequestBody DocumentType entity) throws Exception{
+    public ResponseEntity<DocumentTypeDto> update(@PathVariable Long id,@RequestBody DocumentTypeDto entity) throws Exception{
         return ResponseEntity.status(HttpStatus.CREATED).body(this.documentTypeService.update(id,entity));
     }
 }
