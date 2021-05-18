@@ -32,8 +32,8 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public Optional<User> findByName(String name) {
-        return this.userRepository.findByName(name);
+    public Optional<User> findByEmail(String email) {
+        return this.userRepository.findByEmail(email);
     }
 
     @Override

@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface UserService {
 
-    public Optional<User> findByName(String name);
+    public Optional<User> findByEmail(String email);
     public boolean existsByNameUser(String name);
     public boolean existsByEmailUser(String email);
     User save(NewUserDto dto) throws Exception;

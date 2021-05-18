@@ -65,6 +65,10 @@ public class User implements Serializable {
         this.state = state;
     }
 
+    public User() {
+
+    }
+
     public Long getId() {
         return id;
     }

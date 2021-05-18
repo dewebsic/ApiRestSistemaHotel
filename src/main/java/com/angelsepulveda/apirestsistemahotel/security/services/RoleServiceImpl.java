@@ -30,4 +30,9 @@ public class RoleServiceImpl implements RoleService {
         return role;
 
     }
+
+    @Override
+    public void save(Role role) {
+        this.roleRepository.save(role);
+    }
 }

@@ -7,5 +7,6 @@ import java.util.Optional;
 
 public interface RoleService {
 
-    Optional<Role> findByRoleName(RoleName roleName) throws Exception;
+    public Optional<Role> findByRoleName(RoleName roleName) throws Exception;
+    public void save(Role role);
 }
