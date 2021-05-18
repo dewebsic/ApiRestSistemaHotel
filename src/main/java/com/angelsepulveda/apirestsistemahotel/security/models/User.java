@@ -15,10 +15,6 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@Builder
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class User implements Serializable {
 
     @Id
@@ -46,15 +42,98 @@ public class User implements Serializable {
     @Column(name = "email", length = 200, nullable = true)
     private String email;
 
-    @Column(name = "email", length = 256, nullable = false)
+    @Column(name = "password", length = 256, nullable = false)
     private String passoword;
+
+    @NotNull(message = "el estado es requerido")
+    @Column(name = "state", nullable = false)
+    private Boolean state;
 
     @ManyToMany
     @JoinTable(name = "user_role", joinColumns  = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "rol_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @NotNull(message = "el estado es requerido")
-    @Column(name = "state", nullable = false)
-    private Boolean state;
+    public User(String name, String lastName, String address, String phoneNumber,
+                String email, String passoword, Boolean state) {
+        this.name = name;
+        this.lastName = lastName;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.passoword = passoword;
+        this.state = state;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassoword() {
+        return passoword;
+    }
+
+    public void setPassoword(String passoword) {
+        this.passoword = passoword;
+    }
+
+    public Boolean getState() {
+        return state;
+    }
+
+    public void setState(Boolean state) {
+        this.state = state;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 }
