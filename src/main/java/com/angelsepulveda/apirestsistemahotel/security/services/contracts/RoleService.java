@@ -9,4 +9,5 @@ public interface RoleService {
 
     public Optional<Role> findByRoleName(RoleName roleName) throws Exception;
     public void save(Role role);
+    public boolean existsByRoleName(RoleName roleName);
 }

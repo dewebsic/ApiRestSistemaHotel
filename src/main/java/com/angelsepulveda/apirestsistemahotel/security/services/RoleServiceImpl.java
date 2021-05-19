@@ -35,4 +35,9 @@ public class RoleServiceImpl implements RoleService {
     public void save(Role role) {
         this.roleRepository.save(role);
     }
+
+    @Override
+    public boolean existsByRoleName(RoleName roleName) {
+        return this.roleRepository.existsByRoleName(roleName);
+    }
 }
