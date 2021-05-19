@@ -1,9 +1,5 @@
 package com.angelsepulveda.apirestsistemahotel.security.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -49,7 +45,7 @@ public class User implements Serializable {
     @Column(name = "state", nullable = false)
     private Boolean state;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns  = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "rol_id"))
     private Set<Role> roles = new HashSet<>();

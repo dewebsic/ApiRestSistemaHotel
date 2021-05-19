@@ -12,12 +12,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/documenttypes")
+@CrossOrigin(origins = "*")
 public class DocumentTypeController {
 
     private final DocumentTypeService documentTypeService;
@@ -33,6 +35,7 @@ public class DocumentTypeController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = DocumentTypeDto.class))})
     })
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<List<DocumentTypeDto>> findAll() throws Exception {
         return ResponseEntity.status(HttpStatus.OK).body(this.documentTypeService.findAll());
@@ -45,6 +48,7 @@ public class DocumentTypeController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = DocumentType.class))})
     })
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/paged")
     public ResponseEntity<Page<DocumentType>> findAll(Pageable pageable) throws Exception {
         return ResponseEntity.status(HttpStatus.OK).body(this.documentTypeService.findAll(pageable));
@@ -57,6 +61,7 @@ public class DocumentTypeController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = DocumentType.class))})
     })
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/search")
     public ResponseEntity<Page<DocumentType>> search(@RequestParam String filter,Pageable pageable) throws Exception {
         return ResponseEntity.status(HttpStatus.OK).body(this.documentTypeService.search(filter,pageable));
@@ -69,6 +74,7 @@ public class DocumentTypeController {
                             schema = @Schema(implementation = DocumentTypeDto.class)) }),
             @ApiResponse(responseCode = "404", description = "DocumentType not found",
                     content = @Content) })
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<DocumentTypeDto> getOne(@PathVariable Long id) throws Exception{
         return ResponseEntity.status(HttpStatus.OK).body(this.documentTypeService.findById(id));
@@ -80,6 +86,7 @@ public class DocumentTypeController {
             @ApiResponse(responseCode = "201", description = "DocumentType created",
                     content = @Content(schema = @Schema(implementation = DocumentTypeDto.class))),
             @ApiResponse(responseCode = "405", description = "Invalid input")})
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<DocumentTypeDto> save(@RequestBody DocumentTypeDto entity) throws Exception{
         return ResponseEntity.status(HttpStatus.CREATED).body(this.documentTypeService.save(entity));
@@ -91,6 +98,7 @@ public class DocumentTypeController {
                     content = @Content(schema = @Schema(implementation = DocumentTypeDto.class))),
             @ApiResponse(responseCode = "404", description = "DocumentType not found"),
             @ApiResponse(responseCode = "405", description = "Validation exception") })
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<DocumentTypeDto> update(@PathVariable Long id,@RequestBody DocumentTypeDto entity) throws Exception{
         return ResponseEntity.status(HttpStatus.CREATED).body(this.documentTypeService.update(id,entity));
@@ -101,6 +109,7 @@ public class DocumentTypeController {
             @ApiResponse(responseCode = "201", description = "successful operation"),
             @ApiResponse(responseCode = "404", description = "DocumentType not found"),
             @ApiResponse(responseCode = "405", description = "Validation exception") })
+    @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/deactivate/{id}")
     public ResponseEntity<String> deactivate(@PathVariable Long id) throws Exception{
         this.documentTypeService.deactivate(id);
@@ -112,6 +121,7 @@ public class DocumentTypeController {
             @ApiResponse(responseCode = "201", description = "successful operation"),
             @ApiResponse(responseCode = "404", description = "DocumentType not found"),
             @ApiResponse(responseCode = "405", description = "Validation exception") })
+    @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/activate/{id}")
     public ResponseEntity<String> activate(@PathVariable Long id) throws Exception{
         this.documentTypeService.activate(id);

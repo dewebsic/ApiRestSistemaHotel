@@ -13,12 +13,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/categoryservices")
+@CrossOrigin(origins = "*")
 public class CategoryServiController {
 
     private final CategoryServiService categoryServiService;
@@ -81,6 +83,7 @@ public class CategoryServiController {
             @ApiResponse(responseCode = "201", description = "CategoryServi created",
                     content = @Content(schema = @Schema(implementation = DocumentTypeDto.class))),
             @ApiResponse(responseCode = "405", description = "Invalid input")})
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<CategoryServiDto> save(@RequestBody CategoryServiDto entity) throws Exception{
         return ResponseEntity.status(HttpStatus.CREATED).body(this.categoryServiService.save(entity));
@@ -92,6 +95,7 @@ public class CategoryServiController {
                     content = @Content(schema = @Schema(implementation = CategoryServiDto.class))),
             @ApiResponse(responseCode = "404", description = "CategoryServi not found"),
             @ApiResponse(responseCode = "405", description = "Validation exception") })
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<CategoryServiDto> update(@PathVariable Long id,@RequestBody CategoryServiDto entity) throws Exception{
         return ResponseEntity.status(HttpStatus.CREATED).body(this.categoryServiService.update(id,entity));
@@ -102,6 +106,7 @@ public class CategoryServiController {
             @ApiResponse(responseCode = "201", description = "successful operation"),
             @ApiResponse(responseCode = "404", description = "CategoryServi not found"),
             @ApiResponse(responseCode = "405", description = "Validation exception") })
+    @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/deactivate/{id}")
     public ResponseEntity<String> deactivate(@PathVariable Long id) throws Exception{
         this.categoryServiService.deactivate(id);
@@ -113,6 +118,7 @@ public class CategoryServiController {
             @ApiResponse(responseCode = "201", description = "successful operation"),
             @ApiResponse(responseCode = "404", description = "CategoryServi not found"),
             @ApiResponse(responseCode = "405", description = "Validation exception") })
+    @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/activate/{id}")
     public ResponseEntity<String> activate(@PathVariable Long id) throws Exception{
         this.categoryServiService.activate(id);
