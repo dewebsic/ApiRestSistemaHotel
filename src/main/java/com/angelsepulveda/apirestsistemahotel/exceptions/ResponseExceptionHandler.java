@@ -28,6 +28,12 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler{
         return new ResponseEntity<ResponseException>(er, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(UnAuthorizedException.class)
+    public final ResponseEntity<ResponseException> manejarModeloException(UnAuthorizedException ex, WebRequest request) {
+        ResponseException er = new ResponseException(LocalDateTime.now(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<ResponseException>(er, HttpStatus.UNAUTHORIZED);
+    }
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         ResponseException er = new ResponseException(LocalDateTime.now(), ex.getMessage(), request.getDescription(false));

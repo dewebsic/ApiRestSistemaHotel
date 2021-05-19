@@ -1,5 +1,6 @@
 package com.angelsepulveda.apirestsistemahotel.security.jwt;
 
+import com.angelsepulveda.apirestsistemahotel.exceptions.UnAuthorizedException;
 import com.angelsepulveda.apirestsistemahotel.security.models.UserMain;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
@@ -47,13 +48,13 @@ public class JwtProvider {
             Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
             return true;
         }catch (MalformedJwtException e){
-            logger.error("token mal formado");
+            throw new UnAuthorizedException("token mal formado");
         }catch (UnsupportedJwtException e){
-            logger.error("token no soportado");
+            throw new UnAuthorizedException("token no soportado");
         }catch (ExpiredJwtException e){
-            logger.error("token expirado");
+            throw new UnAuthorizedException("token expirado");
         }catch (IllegalArgumentException e){
-            logger.error("token vacío");
+            throw new UnAuthorizedException("token vacío");
         }catch (SignatureException e){
             logger.error("fail en la firma");
         }
