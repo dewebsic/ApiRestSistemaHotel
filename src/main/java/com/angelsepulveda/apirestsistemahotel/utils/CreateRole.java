@@ -18,7 +18,7 @@ public class CreateRole implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        if(this.roleService.existsByRoleName(RoleName.ROLE_ADMIN)){
+        if(!this.roleService.existsByRoleName(RoleName.ROLE_ADMIN)){
 
             Role roleAdmin = new Role(RoleName.ROLE_ADMIN);
             Role roleUser = new Role(RoleName.ROLE_USER);

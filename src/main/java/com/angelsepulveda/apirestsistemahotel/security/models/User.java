@@ -38,6 +38,7 @@ public class User implements Serializable {
     @Column(name = "email", length = 200, nullable = true)
     private String email;
 
+    @Size(min = 6, max = 256, message = "El password debe tener un minimo de 6")
     @Column(name = "password", length = 256, nullable = false)
     private String passoword;
 

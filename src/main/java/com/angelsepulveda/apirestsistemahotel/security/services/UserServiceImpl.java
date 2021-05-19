@@ -9,6 +9,7 @@ import com.angelsepulveda.apirestsistemahotel.security.models.User;
 import com.angelsepulveda.apirestsistemahotel.security.repositories.UserRepository;
 import com.angelsepulveda.apirestsistemahotel.security.services.contracts.RoleService;
 import com.angelsepulveda.apirestsistemahotel.security.services.contracts.UserService;
+import com.angelsepulveda.apirestsistemahotel.security.validators.contracts.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,14 +23,20 @@ import java.util.Set;
 @Transactional
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final RoleService roleService;
+    private final UserMapper userMapper;
+    private final UserValidator userValidator;
 
-    @Autowired
-    private RoleService roleService;
+    public UserServiceImpl(UserRepository userRepository, RoleService roleService,
+                           UserMapper userMapper, UserValidator userValidator) {
 
-    @Autowired
-    private UserMapper userMapper;
+        this.userRepository = userRepository;
+        this.roleService = roleService;
+        this.userMapper = userMapper;
+        this.userValidator = userValidator;
+    }
+
 
     @Override
     public Optional<User> findByEmail(String email) {
@@ -52,6 +59,9 @@ public class UserServiceImpl implements UserService {
 
             //convertimos a user
             User user = this.userMapper.fromDto(dto);
+
+            //validamos el usuario
+            this.userValidator.validate(user);
 
             Set<Role> roles = new HashSet<>();
 
