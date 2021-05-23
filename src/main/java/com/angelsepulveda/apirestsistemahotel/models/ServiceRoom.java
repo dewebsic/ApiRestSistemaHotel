@@ -17,7 +17,11 @@ public class ServiceRoom{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    public Long id;
+    private Long id;
+
+    @Size(min = 3, max = 50, message = "El nombre debe tener un minimo de 3 y un maximo de 50 caracteres")
+    @Column(name = "name", length = 50, unique = true, nullable = false)
+    private String name;
 
     @ManyToOne
     @JoinColumn(name = "id_category_service", nullable = false, foreignKey = @ForeignKey(name = "FK_service_room_category"))

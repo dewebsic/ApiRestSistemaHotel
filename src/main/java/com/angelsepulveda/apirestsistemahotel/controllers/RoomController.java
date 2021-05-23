@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -46,6 +47,7 @@ public class RoomController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = Room.class))})
     })
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/paged")
     public ResponseEntity<Page<Room>> findAll(Pageable pageable) throws Exception {
         return ResponseEntity.status(HttpStatus.OK).body(this.roomService.findAll(pageable));
@@ -58,6 +60,7 @@ public class RoomController {
                             schema = @Schema(implementation = RoomDto.class)) }),
             @ApiResponse(responseCode = "404", description = "Room not found",
                     content = @Content) })
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<RoomDto> getOne(@PathVariable Long id) throws Exception{
         return ResponseEntity.status(HttpStatus.OK).body(this.roomService.findById(id));
@@ -69,6 +72,7 @@ public class RoomController {
             @ApiResponse(responseCode = "201", description = "Room created",
                     content = @Content(schema = @Schema(implementation = RoomDto.class))),
             @ApiResponse(responseCode = "405", description = "Invalid input")})
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<RoomDto> save(@RequestBody RoomDto entity) throws Exception{
         return ResponseEntity.status(HttpStatus.CREATED).body(this.roomService.save(entity));
@@ -80,6 +84,7 @@ public class RoomController {
                     content = @Content(schema = @Schema(implementation = RoomDto.class))),
             @ApiResponse(responseCode = "404", description = "Room not found"),
             @ApiResponse(responseCode = "405", description = "Validation exception") })
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<RoomDto> update(@PathVariable Long id,@RequestBody RoomDto entity) throws Exception{
         return ResponseEntity.status(HttpStatus.CREATED).body(this.roomService.update(id,entity));
@@ -90,6 +95,7 @@ public class RoomController {
             @ApiResponse(responseCode = "201", description = "successful operation"),
             @ApiResponse(responseCode = "404", description = "Room not found"),
             @ApiResponse(responseCode = "405", description = "Validation exception") })
+    @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/deactivate/{id}")
     public ResponseEntity<String> deactivate(@PathVariable Long id) throws Exception{
         this.roomService.deactivate(id);
@@ -101,6 +107,7 @@ public class RoomController {
             @ApiResponse(responseCode = "201", description = "successful operation"),
             @ApiResponse(responseCode = "404", description = "Room not found"),
             @ApiResponse(responseCode = "405", description = "Validation exception") })
+    @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/activate/{id}")
     public ResponseEntity<String> activate(@PathVariable Long id) throws Exception{
         this.roomService.activate(id);

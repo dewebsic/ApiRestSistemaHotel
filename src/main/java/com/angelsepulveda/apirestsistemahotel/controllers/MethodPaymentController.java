@@ -35,7 +35,6 @@ public class MethodPaymentController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = MethodPaymentDto.class))})
     })
-    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<List<MethodPaymentDto>> findAll() throws Exception {
         return ResponseEntity.status(HttpStatus.OK).body(this.methodPaymentService.findAll());

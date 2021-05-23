@@ -35,7 +35,6 @@ public class DocumentTypeController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = DocumentTypeDto.class))})
     })
-    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<List<DocumentTypeDto>> findAll() throws Exception {
         return ResponseEntity.status(HttpStatus.OK).body(this.documentTypeService.findAll());
