@@ -90,7 +90,7 @@ public class CustomerController {
     @Operation(summary = "Desactivar un Customer", description = "", tags = { "customers" })
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "successful operation"),
-            @ApiResponse(responseCode = "404", description = "CategoryServi not found"),
+            @ApiResponse(responseCode = "404", description = "Customer not found"),
             @ApiResponse(responseCode = "405", description = "Validation exception") })
     @PatchMapping("/deactivate/{id}")
     public ResponseEntity<String> deactivate(@PathVariable Long id) throws Exception{
@@ -101,7 +101,7 @@ public class CustomerController {
     @Operation(summary = "Activar un Customer", description = "", tags = { "customers" })
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "successful operation"),
-            @ApiResponse(responseCode = "404", description = "CategoryServi not found"),
+            @ApiResponse(responseCode = "404", description = "Customer not found"),
             @ApiResponse(responseCode = "405", description = "Validation exception") })
     @PatchMapping("/activate/{id}")
     public ResponseEntity<String> activate(@PathVariable Long id) throws Exception{

@@ -7,11 +7,13 @@ import lombok.Setter;
 @Builder
 @Getter
 @Setter
-public class CategoryRoomDto {
+public class RoomDto {
 
     private Long id;
-    private String name;
-    private Double price;
+    private CategoryRoomDto categoryRoomDto;
+    private String roomNumber;
+    private String floorNumber;
+    private int capacity;
     private String description;
     private Boolean state;
 }

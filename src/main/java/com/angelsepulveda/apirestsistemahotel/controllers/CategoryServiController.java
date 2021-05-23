@@ -81,7 +81,7 @@ public class CategoryServiController {
     @Operation(summary = "Agregar un CategoryServi", description = "", tags = { "categoryServi" })
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "CategoryServi created",
-                    content = @Content(schema = @Schema(implementation = DocumentTypeDto.class))),
+                    content = @Content(schema = @Schema(implementation = CategoryServiDto.class))),
             @ApiResponse(responseCode = "405", description = "Invalid input")})
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
