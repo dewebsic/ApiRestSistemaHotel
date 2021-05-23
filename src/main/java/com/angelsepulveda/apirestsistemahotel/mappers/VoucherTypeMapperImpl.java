@@ -12,6 +12,9 @@ import java.util.stream.Collectors;
 public class VoucherTypeMapperImpl implements VoucherTypeMapper {
     @Override
     public VoucherTypeDto fromEntity(VoucherType entity) {
+
+        if(entity == null) return null;
+
         return VoucherTypeDto.builder()
                 .id(entity.getId())
                 .name(entity.getName())
@@ -23,6 +26,9 @@ public class VoucherTypeMapperImpl implements VoucherTypeMapper {
 
     @Override
     public VoucherType fromDto(VoucherTypeDto dto) {
+
+        if(dto == null) return null;
+
         return VoucherType.builder()
                 .id(dto.getId())
                 .name(dto.getName())
@@ -34,6 +40,8 @@ public class VoucherTypeMapperImpl implements VoucherTypeMapper {
     @Override
     public List<VoucherTypeDto> fromEntity(List<VoucherType> entities) {
 
+        if(entities == null) return null;
+
         return entities.stream()
                 .map(e -> fromEntity(e))
                 .collect(Collectors.toList());
@@ -41,6 +49,8 @@ public class VoucherTypeMapperImpl implements VoucherTypeMapper {
 
     @Override
     public List<VoucherType> fromDto(List<VoucherTypeDto> dtos) {
+
+        if(dtos == null) return null;
 
         return dtos.stream()
                 .map(e -> fromDto(e))

@@ -13,6 +13,9 @@ public class MethodPaymentMapperImpl implements MethodPaymentMapper {
 
     @Override
     public MethodPaymentDto fromEntity(MethodPayment entity) {
+
+        if(entity == null) return null;
+
         return MethodPaymentDto.builder()
                 .id(entity.getId())
                 .name(entity.getName())
@@ -23,6 +26,9 @@ public class MethodPaymentMapperImpl implements MethodPaymentMapper {
 
     @Override
     public MethodPayment fromDto(MethodPaymentDto dto) {
+
+        if(dto == null) return null;
+
         return MethodPayment.builder()
                 .id(dto.getId())
                 .name(dto.getName())
@@ -33,6 +39,9 @@ public class MethodPaymentMapperImpl implements MethodPaymentMapper {
 
     @Override
     public List<MethodPaymentDto> fromEntity(List<MethodPayment> entities) {
+
+        if(entities == null) return null;
+
         return entities.stream()
                 .map(e -> fromEntity(e))
                 .collect(Collectors.toList());
@@ -40,6 +49,9 @@ public class MethodPaymentMapperImpl implements MethodPaymentMapper {
 
     @Override
     public List<MethodPayment> fromDto(List<MethodPaymentDto> dtos) {
+
+        if(dtos == null) return null;
+
         return dtos.stream()
                 .map(e -> fromDto(e))
                 .collect(Collectors.toList());

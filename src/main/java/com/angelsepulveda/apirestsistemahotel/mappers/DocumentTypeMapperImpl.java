@@ -13,6 +13,9 @@ public class DocumentTypeMapperImpl implements DocumentTypeMapper {
 
     @Override
     public DocumentTypeDto fromEntity(DocumentType entity) {
+
+        if(entity == null) return null;
+
         return DocumentTypeDto.builder()
                      .id(entity.getId())
                      .name(entity.getName())
@@ -24,6 +27,9 @@ public class DocumentTypeMapperImpl implements DocumentTypeMapper {
 
     @Override
     public DocumentType fromDto(DocumentTypeDto dto) {
+
+        if(dto == null ) return null;
+
         return DocumentType.builder()
                 .id(dto.getId())
                 .name(dto.getName())
@@ -35,6 +41,8 @@ public class DocumentTypeMapperImpl implements DocumentTypeMapper {
     @Override
     public List<DocumentTypeDto> fromEntity(List<DocumentType> entities) {
 
+        if(entities == null) return null;
+
         return entities.stream()
                 .map(e -> fromEntity(e))
                 .collect(Collectors.toList());
@@ -42,6 +50,8 @@ public class DocumentTypeMapperImpl implements DocumentTypeMapper {
 
     @Override
     public List<DocumentType> fromDto(List<DocumentTypeDto> dtos) {
+
+        if(dtos == null) return null;
 
         return dtos.stream()
                 .map(e -> fromDto(e))

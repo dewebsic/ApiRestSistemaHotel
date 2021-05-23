@@ -13,6 +13,9 @@ public class CategoryServiMapperImpl implements CategoryServiMapper {
 
     @Override
     public CategoryServiDto fromEntity(CategoryServi entity) {
+
+        if(entity == null) return null;
+
         return CategoryServiDto.builder()
                 .id(entity.getId())
                 .name(entity.getName())
@@ -23,6 +26,9 @@ public class CategoryServiMapperImpl implements CategoryServiMapper {
 
     @Override
     public CategoryServi fromDto(CategoryServiDto dto) {
+
+        if(dto == null)  return null;
+
         return CategoryServi.builder()
                 .id(dto.getId())
                 .name(dto.getName())
@@ -33,6 +39,9 @@ public class CategoryServiMapperImpl implements CategoryServiMapper {
 
     @Override
     public List<CategoryServiDto> fromEntity(List<CategoryServi> entities) {
+
+        if(entities == null ) return null;
+
         return entities.stream()
                 .map(e -> fromEntity(e))
                 .collect(Collectors.toList());
@@ -40,6 +49,9 @@ public class CategoryServiMapperImpl implements CategoryServiMapper {
 
     @Override
     public List<CategoryServi> fromDto(List<CategoryServiDto> dtos) {
+
+        if(dtos == null) return null;
+
         return dtos.stream()
                 .map(e -> fromDto(e))
                 .collect(Collectors.toList());
