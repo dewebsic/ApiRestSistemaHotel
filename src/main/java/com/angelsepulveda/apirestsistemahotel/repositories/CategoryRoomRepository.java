@@ -15,6 +15,6 @@ public interface CategoryRoomRepository extends BaseRepository<CategoryRoom,Long
     Page<CategoryRoom> search(@Param("filter") String filter, Pageable pageable);
 
     @Modifying
-    @Query(value = "UPDATE CategoryServi c SET c.state=:value WHERE c.id=:id")
+    @Query(value = "UPDATE CategoryRoom c SET c.state=:value WHERE c.id=:id")
     void changeState(@Param("value") Boolean value, @Param("id") Long id);
 }

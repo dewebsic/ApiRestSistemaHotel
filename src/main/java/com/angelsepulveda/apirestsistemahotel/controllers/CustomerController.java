@@ -1,6 +1,5 @@
 package com.angelsepulveda.apirestsistemahotel.controllers;
 
-import com.angelsepulveda.apirestsistemahotel.dtos.CategoryServiDto;
 import com.angelsepulveda.apirestsistemahotel.dtos.CustomerDto;
 import com.angelsepulveda.apirestsistemahotel.dtos.DocumentTypeDto;
 import com.angelsepulveda.apirestsistemahotel.models.Customer;
@@ -57,7 +56,7 @@ public class CustomerController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Se encontro el archivo",
                     content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = CategoryServiDto.class)) }),
+                            schema = @Schema(implementation = CustomerDto.class)) }),
             @ApiResponse(responseCode = "404", description = "Customer not found",
                     content = @Content) })
     @GetMapping("/{id}")
@@ -79,7 +78,7 @@ public class CustomerController {
     @Operation(summary = "Actualizar un Customer", description = "", tags = { "customers" })
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "successful operation",
-                    content = @Content(schema = @Schema(implementation = CategoryServiDto.class))),
+                    content = @Content(schema = @Schema(implementation = CustomerDto.class))),
             @ApiResponse(responseCode = "404", description = "Customer not found"),
             @ApiResponse(responseCode = "405", description = "Validation exception") })
     @PutMapping("/{id}")

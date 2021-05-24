@@ -35,6 +35,10 @@ public class RoomServiceImpl extends BaseServiceImpl<Room, RoomDto,Long> impleme
 
     @Override
     public void activate(Long id) throws Exception {
-
+        try{
+            this.roomRepository.changeState(true,id);
+        }catch (Exception ex){
+            throw new Exception(ex.getMessage());
+        }
     }
 }

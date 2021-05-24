@@ -1,7 +1,6 @@
 package com.angelsepulveda.apirestsistemahotel.controllers;
 
 import com.angelsepulveda.apirestsistemahotel.dtos.CategoryRoomDto;
-import com.angelsepulveda.apirestsistemahotel.dtos.CategoryServiDto;
 import com.angelsepulveda.apirestsistemahotel.models.CategoryRoom;
 import com.angelsepulveda.apirestsistemahotel.services.contracts.CategoryRoomService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -53,7 +52,7 @@ public class CategoryRoomController {
         return ResponseEntity.status(HttpStatus.OK).body(this.categoryRoomService.findAll(pageable));
     }
 
-    @Operation(summary = "buscar registros en los CategoryRoom con resultados paginados",description = "", tags = { "categoryServi" })
+    @Operation(summary = "buscar registros en los CategoryRoom con resultados paginados",description = "", tags = { "categoryRoom" })
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Se obtuvo todos los registros",
@@ -69,7 +68,7 @@ public class CategoryRoomController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Se encontro el archivo",
                     content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = CategoryServiDto.class)) }),
+                            schema = @Schema(implementation = CategoryRoomDto.class)) }),
             @ApiResponse(responseCode = "404", description = "CategoryRoom not found",
                     content = @Content) })
     @GetMapping("/{id}")
